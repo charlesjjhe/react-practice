@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            trying hard
+        </title>
+        <style>
+            .filter a:active,
+            .filter a:focus {
+                background: #05943c;
+                color: #fff;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="list">
+
+        </div>
+        <script>
+            console.log('hello world')
+
+            const obj1 = {id: '12345', message: 'message a', obj_nmae: 'oh no', goods: [{gid: 1, gname: 'good1'}, {gid: 2, gname: 'good2'}, {gid: 3, gname: 'good3'}]}
+            const {id: objid} = obj1
+            console.log(`print obj id ${objid}`)
+            let str = ''
+            const {goods} = obj1
+            goods.forEach(item => {
+                const{gid, gname} = item
+                str += `
+                    <div class="item">
+                        <a data-index="1" href="javascript:;" class="filter">${gid}</a>
+                        <p class="name">${gid}</p>
+                        <p class="price">${gname}</p>
+                    </div>
+                `
+            })
+            document.getElementById('list').innerHTML = str
+
+            // create object
+            const obj01 = {oname: "obj01"}
+            console.log(obj01)
+            let obj02 = Object()
+            obj02.oname = "obj02"
+            console.log(obj02)
+            // use construct method to create object
+            function CObj(oname, oage, ogender) {
+                this.oname = oname
+                this.oage = oage
+                this.ogender = ogender
+                console.log(this)
+                this.grow = () => {
+                    this.oage++
+                }
+                this.showRace = () => {
+                    CObj.race()
+                }
+            }
+            const human = {eye: 2, head: 1}
+            CObj.race = () => {console.log('human!')}
+            CObj.prototype.hasAge = () => {console.log('we have age!')}
+            Object.assign(CObj.prototype, human)
+            for(let i=0; i<1; i++) {
+                const obj03 = new CObj('obj03', i+1, 'male')
+                obj03.grow()
+                obj03.showRace()
+                console.log(obj03)
+                console.log(Object.keys(obj03))
+                console.log(Object.values(obj03))
+                Object.assign(obj03, {hair: true})
+                console.log(obj03)
+                obj03.hasAge()
+                console.dir(CObj)
+                console.dir(CObj.prototype)
+                console.dir(obj03.__proto__)
+                console.log(obj03.eye)
+            }
+
+            function Country(name) {
+                countryName: name
+            }
+            function City(name) {
+                cityName: name
+            }
+            City.prototype.__proto__ = new Country('cn')
+
+            function District(name) {
+                districtName: name
+            }
+            District.prototype.__proto__ = new City('GZ')
+
+            function Office(name) {
+                officeName: name
+            }
+            // Office.prototype.__proto__ = new District('TH')
+
+            const office1 = new Office('THK')
+            const office2 = new Office('RenFeng')
+
+            console.log(office1)
+            console.log(office1 instanceof Country)
+            console.log(office1.countryName)
+            // console.dir(office2)
+        </script>
+    </body>
+</html>
